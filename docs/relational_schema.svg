@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 750" width="100%" height="100%" style="background-color: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+  <defs>
+    <style>
+      .schema-box { fill: #ffffff; stroke: #94a3b8; stroke-width: 1.5; rx: 6px; }
+      .schema-header { fill: #1e293b; font-size: 14px; font-weight: bold; }
+      .schema-text { fill: #0f172a; font-size: 12px; font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace; }
+      .pk-underline { text-decoration: underline; font-weight: bold; fill: #b45309; }
+      .fk-italic { font-style: italic; fill: #2563eb; }
+      .arrow-line { stroke: #2563eb; stroke-width: 1.8; fill: none; marker-end: url(#arrow); }
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="#2563eb"/>
+    </marker>
+    <filter id="box-shadow" x="-3%" y="-5%" width="106%" height="110%">
+      <feDropShadow dx="0" dy="3" stdDeviation="3" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <!-- Title -->
+  <text x="40" y="45" font-size="22" font-weight="bold" fill="#0f172a">HackArena: Relational Schema Diagram</text>
+  <text x="40" y="68" font-size="13" fill="#64748b">Exact Foreign Key Mappings across the Six 3NF Normalized Relations</text>
+
+  <!-- 1. HACKATHONS SCHEMA -->
+  <g transform="translate(50, 100)" filter="url(#box-shadow)">
+    <rect width="980" height="65" class="schema-box"/>
+    <rect width="980" height="26" fill="#f1f5f9" rx="6" style="border-bottom-left-radius:0; border-bottom-right-radius:0;"/>
+    <text x="15" y="18" class="schema-header">HACKATHONS</text>
+    <text x="15" y="48" class="schema-text">
+      (<tspan class="pk-underline">hackathon_id</tspan>, title, description, start_date, end_date, registration_deadline, status, created_at)
+    </text>
+  </g>
+
+  <!-- 2. TEAMS SCHEMA -->
+  <g transform="translate(50, 200)" filter="url(#box-shadow)">
+    <rect width="980" height="65" class="schema-box"/>
+    <rect width="980" height="26" fill="#f1f5f9" rx="6"/>
+    <text x="15" y="18" class="schema-header">TEAMS</text>
+    <text x="15" y="48" class="schema-text">
+      (<tspan class="pk-underline">team_id</tspan>, team_name, <tspan class="fk-italic" id="teams_hackathon_fk">hackathon_id*</tspan>, created_at)
+    </text>
+  </g>
+
+  <!-- 3. TEAM_MEMBERS SCHEMA -->
+  <g transform="translate(50, 310)" filter="url(#box-shadow)">
+    <rect width="980" height="65" class="schema-box"/>
+    <rect width="980" height="26" fill="#f1f5f9" rx="6"/>
+    <text x="15" y="18" class="schema-header">TEAM_MEMBERS (Associative Entity)</text>
+    <text x="15" y="48" class="schema-text">
+      (<tspan class="pk-underline" style="fill:#b45309"><tspan class="fk-italic">team_id*</tspan></tspan>, <tspan class="pk-underline" style="fill:#b45309"><tspan class="fk-italic">participant_id*</tspan></tspan>, role, joined_at)
+    </text>
+  </g>
+
+  <!-- 4. PARTICIPANTS SCHEMA -->
+  <g transform="translate(50, 420)" filter="url(#box-shadow)">
+    <rect width="980" height="65" class="schema-box"/>
+    <rect width="980" height="26" fill="#f1f5f9" rx="6"/>
+    <text x="15" y="18" class="schema-header">PARTICIPANTS</text>
+    <text x="15" y="48" class="schema-text">
+      (<tspan class="pk-underline">participant_id</tspan>, name, email [UQ], password_hash, college, phone, created_at)
+    </text>
+  </g>
+
+  <!-- 5. SUBMISSIONS SCHEMA -->
+  <g transform="translate(50, 530)" filter="url(#box-shadow)">
+    <rect width="980" height="65" class="schema-box"/>
+    <rect width="980" height="26" fill="#f1f5f9" rx="6"/>
+    <text x="15" y="18" class="schema-header">SUBMISSIONS</text>
+    <text x="15" y="48" class="schema-text">
+      (<tspan class="pk-underline">submission_id</tspan>, <tspan class="fk-italic">team_id* [UQ]</tspan>, project_title, description, github_link, submitted_at, score, feedback, <tspan class="fk-italic">evaluated_by*</tspan>, status)
+    </text>
+  </g>
+
+  <!-- 6. ADMINS SCHEMA -->
+  <g transform="translate(50, 640)" filter="url(#box-shadow)">
+    <rect width="980" height="65" class="schema-box"/>
+    <rect width="980" height="26" fill="#f1f5f9" rx="6"/>
+    <text x="15" y="18" class="schema-header">ADMINS</text>
+    <text x="15" y="48" class="schema-text">
+      (<tspan class="pk-underline">admin_id</tspan>, name, email [UQ], password_hash, created_at)
+    </text>
+  </g>
+
+  <!-- ARROWS FOR FOREIGN KEY CONNECTIONS -->
+  
+  <!-- teams.hackathon_id -> hackathons.hackathon_id -->
+  <path d="M 270 240 C 270 220, 160 210, 160 172" class="arrow-line"/>
+
+  <!-- team_members.team_id -> teams.team_id -->
+  <path d="M 95 345 C 95 300, 95 290, 95 272" class="arrow-line"/>
+
+  <!-- team_members.participant_id -> participants.participant_id -->
+  <path d="M 230 360 C 230 390, 150 400, 150 415" class="arrow-line"/>
+
+  <!-- submissions.team_id -> teams.team_id -->
+  <path d="M 180 540 C 180 400, 30 300, 80 272" class="arrow-line"/>
+
+  <!-- submissions.evaluated_by -> admins.admin_id -->
+  <path d="M 870 580 C 870 610, 120 620, 120 635" class="arrow-line"/>
+
+</svg>

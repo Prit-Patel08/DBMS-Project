@@ -1,0 +1,235 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1160 820" width="100%" height="100%" style="background-color: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+  <defs>
+    <style>
+      .table-title { font-size: 14px; font-weight: bold; fill: #ffffff; }
+      .col-pk { font-size: 12px; font-weight: bold; fill: #d97706; }
+      .col-fk { font-size: 12px; font-weight: bold; fill: #2563eb; }
+      .col-name { font-size: 12px; fill: #0f172a; }
+      .col-type { font-size: 11px; fill: #64748b; }
+      .rel-line { stroke: #3b82f6; stroke-width: 2; fill: none; }
+      .rel-text { font-size: 11px; fill: #1e293b; font-weight: 600; }
+    </style>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <!-- Title Banner -->
+  <text x="40" y="42" font-size="22" font-weight="bold" fill="#0f172a">HackArena: Entity-Relationship Diagram (ERD)</text>
+  <text x="40" y="65" font-size="13" fill="#64748b">Normalized 6-Core-Table Relational Schema | MySQL 8.4 LTS InnoDB</text>
+
+  <!-- 1. HACKATHONS TABLE (Top Left) -->
+  <g transform="translate(50, 100)" filter="url(#shadow)">
+    <rect width="300" height="230" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+    <path d="M 0 8 Q 0 0 8 0 L 292 0 Q 300 0 300 8 L 300 36 L 0 36 Z" fill="#1e3a8a"/>
+    <text x="15" y="24" class="table-title">hackathons</text>
+    
+    <text x="15" y="58" class="col-pk">PK</text>
+    <text x="45" y="58" class="col-name">hackathon_id</text>
+    <text x="210" y="58" class="col-type">INT AUTO_INC</text>
+    <line x1="10" y1="68" x2="290" y2="68" stroke="#f1f5f9"/>
+
+    <text x="45" y="86" class="col-name">title</text>
+    <text x="210" y="86" class="col-type">VARCHAR(100)</text>
+
+    <text x="45" y="108" class="col-name">description</text>
+    <text x="210" y="108" class="col-type">TEXT</text>
+
+    <text x="45" y="130" class="col-name">start_date</text>
+    <text x="210" y="130" class="col-type">DATE</text>
+
+    <text x="45" y="152" class="col-name">end_date</text>
+    <text x="210" y="152" class="col-type">DATE</text>
+
+    <text x="45" y="174" class="col-name">registration_deadline</text>
+    <text x="210" y="174" class="col-type">DATE</text>
+
+    <text x="45" y="196" class="col-name">status</text>
+    <text x="210" y="196" class="col-type">ENUM('Up','On','Comp')</text>
+
+    <text x="45" y="218" class="col-name">created_at</text>
+    <text x="210" y="218" class="col-type">TIMESTAMP</text>
+  </g>
+
+  <!-- 2. TEAMS TABLE (Center Left) -->
+  <g transform="translate(440, 130)" filter="url(#shadow)">
+    <rect width="280" height="150" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+    <path d="M 0 8 Q 0 0 8 0 L 272 0 Q 280 0 280 8 L 280 36 L 0 36 Z" fill="#2563eb"/>
+    <text x="15" y="24" class="table-title">teams</text>
+
+    <text x="15" y="58" class="col-pk">PK</text>
+    <text x="45" y="58" class="col-name">team_id</text>
+    <text x="195" y="58" class="col-type">INT AUTO_INC</text>
+    <line x1="10" y1="68" x2="270" y2="68" stroke="#f1f5f9"/>
+
+    <text x="45" y="86" class="col-name">team_name</text>
+    <text x="195" y="86" class="col-type">VARCHAR(100)</text>
+
+    <text x="15" y="108" class="col-fk">FK</text>
+    <text x="45" y="108" class="col-name">hackathon_id</text>
+    <text x="195" y="108" class="col-type">INT</text>
+
+    <text x="45" y="130" class="col-name">created_at</text>
+    <text x="195" y="130" class="col-type">TIMESTAMP</text>
+  </g>
+
+  <!-- 3. TEAM_MEMBERS TABLE (Center Right - Resolving M:N) -->
+  <g transform="translate(800, 130)" filter="url(#shadow)">
+    <rect width="280" height="150" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+    <path d="M 0 8 Q 0 0 8 0 L 272 0 Q 280 0 280 8 L 280 36 L 0 36 Z" fill="#0284c7"/>
+    <text x="15" y="24" class="table-title">team_members (Associative)</text>
+
+    <text x="15" y="58" class="col-pk" style="fill:#b45309">PK/FK</text>
+    <text x="65" y="58" class="col-name">team_id</text>
+    <text x="210" y="58" class="col-type">INT</text>
+
+    <text x="15" y="80" class="col-pk" style="fill:#b45309">PK/FK</text>
+    <text x="65" y="80" class="col-name">participant_id</text>
+    <text x="210" y="80" class="col-type">INT</text>
+    <line x1="10" y1="90" x2="270" y2="90" stroke="#f1f5f9"/>
+
+    <text x="65" y="108" class="col-name">role</text>
+    <text x="210" y="108" class="col-type">ENUM('Ldr','Mbr')</text>
+
+    <text x="65" y="130" class="col-name">joined_at</text>
+    <text x="210" y="130" class="col-type">TIMESTAMP</text>
+  </g>
+
+  <!-- 4. PARTICIPANTS TABLE (Bottom Right) -->
+  <g transform="translate(800, 440)" filter="url(#shadow)">
+    <rect width="280" height="200" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+    <path d="M 0 8 Q 0 0 8 0 L 272 0 Q 280 0 280 8 L 280 36 L 0 36 Z" fill="#0d9488"/>
+    <text x="15" y="24" class="table-title">participants</text>
+
+    <text x="15" y="58" class="col-pk">PK</text>
+    <text x="45" y="58" class="col-name">participant_id</text>
+    <text x="195" y="58" class="col-type">INT AUTO_INC</text>
+    <line x1="10" y1="68" x2="270" y2="68" stroke="#f1f5f9"/>
+
+    <text x="45" y="86" class="col-name">name</text>
+    <text x="195" y="86" class="col-type">VARCHAR(100)</text>
+
+    <text x="45" y="108" class="col-name">email (UQ)</text>
+    <text x="195" y="108" class="col-type">VARCHAR(100)</text>
+
+    <text x="45" y="130" class="col-name">password_hash</text>
+    <text x="195" y="130" class="col-type">VARCHAR(255)</text>
+
+    <text x="45" y="152" class="col-name">college</text>
+    <text x="195" y="152" class="col-type">VARCHAR(100)</text>
+
+    <text x="45" y="174" class="col-name">phone</text>
+    <text x="195" y="174" class="col-type">VARCHAR(15)</text>
+
+    <text x="45" y="196" class="col-name">created_at</text>
+    <text x="195" y="196" class="col-type">TIMESTAMP</text>
+  </g>
+
+  <!-- 5. SUBMISSIONS TABLE (Center Bottom) -->
+  <g transform="translate(420, 440)" filter="url(#shadow)">
+    <rect width="320" height="255" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+    <path d="M 0 8 Q 0 0 8 0 L 312 0 Q 320 0 320 8 L 320 36 L 0 36 Z" fill="#7c3aed"/>
+    <text x="15" y="24" class="table-title">submissions</text>
+
+    <text x="15" y="58" class="col-pk">PK</text>
+    <text x="45" y="58" class="col-name">submission_id</text>
+    <text x="215" y="58" class="col-type">INT AUTO_INC</text>
+    <line x1="10" y1="68" x2="310" y2="68" stroke="#f1f5f9"/>
+
+    <text x="15" y="86" class="col-fk">FK</text>
+    <text x="45" y="86" class="col-name">team_id (UQ)</text>
+    <text x="215" y="86" class="col-type">INT (1:1)</text>
+
+    <text x="45" y="108" class="col-name">project_title</text>
+    <text x="215" y="108" class="col-type">VARCHAR(100)</text>
+
+    <text x="45" y="130" class="col-name">description</text>
+    <text x="215" y="130" class="col-type">TEXT</text>
+
+    <text x="45" y="152" class="col-name">github_link</text>
+    <text x="215" y="152" class="col-type">VARCHAR(255)</text>
+
+    <text x="45" y="174" class="col-name">submitted_at</text>
+    <text x="215" y="174" class="col-type">TIMESTAMP</text>
+
+    <text x="45" y="196" class="col-name">score (CHK 0-100)</text>
+    <text x="215" y="196" class="col-type">DECIMAL(5,2)</text>
+
+    <text x="45" y="218" class="col-name">feedback</text>
+    <text x="215" y="218" class="col-type">TEXT</text>
+
+    <text x="15" y="240" class="col-fk">FK</text>
+    <text x="45" y="240" class="col-name">evaluated_by</text>
+    <text x="215" y="240" class="col-type">INT</text>
+  </g>
+
+  <!-- 6. ADMINS TABLE (Bottom Left) -->
+  <g transform="translate(60, 480)" filter="url(#shadow)">
+    <rect width="280" height="170" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+    <path d="M 0 8 Q 0 0 8 0 L 272 0 Q 280 0 280 8 L 280 36 L 0 36 Z" fill="#334155"/>
+    <text x="15" y="24" class="table-title">admins</text>
+
+    <text x="15" y="58" class="col-pk">PK</text>
+    <text x="45" y="58" class="col-name">admin_id</text>
+    <text x="195" y="58" class="col-type">INT AUTO_INC</text>
+    <line x1="10" y1="68" x2="270" y2="68" stroke="#f1f5f9"/>
+
+    <text x="45" y="86" class="col-name">name</text>
+    <text x="195" y="86" class="col-type">VARCHAR(100)</text>
+
+    <text x="45" y="108" class="col-name">email (UQ)</text>
+    <text x="195" y="108" class="col-type">VARCHAR(100)</text>
+
+    <text x="45" y="130" class="col-name">password_hash</text>
+    <text x="195" y="130" class="col-type">VARCHAR(255)</text>
+
+    <text x="45" y="152" class="col-name">created_at</text>
+    <text x="195" y="152" class="col-type">TIMESTAMP</text>
+  </g>
+
+  <!-- RELATIONSHIP LINES -->
+  
+  <!-- Rel 1: hackathons -> teams (1 to N) -->
+  <path d="M 350 200 L 440 200" class="rel-line"/>
+  <circle cx="355" cy="200" r="3" fill="#1e3a8a"/>
+  <text x="360" y="193" class="rel-text">1</text>
+  <text x="420" y="193" class="rel-text">0..N</text>
+
+  <!-- Rel 2: teams -> team_members (1 to N) -->
+  <path d="M 720 200 L 800 200" class="rel-line"/>
+  <circle cx="725" cy="200" r="3" fill="#2563eb"/>
+  <text x="730" y="193" class="rel-text">1</text>
+  <text x="780" y="193" class="rel-text">1..N</text>
+
+  <!-- Rel 3: participants -> team_members (1 to N) -->
+  <path d="M 940 440 L 940 280" class="rel-line"/>
+  <circle cx="940" cy="435" r="3" fill="#0d9488"/>
+  <text x="948" y="425" class="rel-text">1</text>
+  <text x="948" y="295" class="rel-text">0..N</text>
+
+  <!-- Rel 4: teams -> submissions (1 to 1) -->
+  <path d="M 580 280 L 580 440" class="rel-line" stroke-dasharray="4,4"/>
+  <circle cx="580" cy="285" r="3" fill="#2563eb"/>
+  <text x="588" y="298" class="rel-text">1</text>
+  <text x="588" y="425" class="rel-text">0..1 (UQ)</text>
+
+  <!-- Rel 5: admins -> submissions (1 to N) -->
+  <path d="M 340 560 L 420 560" class="rel-line"/>
+  <circle cx="345" cy="560" r="3" fill="#334155"/>
+  <text x="350" y="552" class="rel-text">1</text>
+  <text x="400" y="552" class="rel-text">0..N</text>
+
+  <!-- Legend -->
+  <g transform="translate(60, 730)">
+    <rect width="650" height="40" rx="6" fill="#ffffff" stroke="#e2e8f0"/>
+    <text x="20" y="25" font-size="12" font-weight="bold" fill="#0f172a">Legend:</text>
+    <rect x="80" y="15" width="16" height="14" fill="#d97706" rx="2"/>
+    <text x="102" y="26" font-size="11" fill="#334155">Primary Key (PK)</text>
+    <rect x="215" y="15" width="16" height="14" fill="#2563eb" rx="2"/>
+    <text x="237" y="26" font-size="11" fill="#334155">Foreign Key (FK)</text>
+    <line x1="345" y1="22" x2="375" y2="22" class="rel-line"/>
+    <text x="385" y="26" font-size="11" fill="#334155">1:N Relationship</text>
+    <line x1="485" y1="22" x2="515" y2="22" class="rel-line" stroke-dasharray="4,4"/>
+    <text x="525" y="26" font-size="11" fill="#334155">1:1 Relationship (Unique)</text>
+  </g>
+</svg>
